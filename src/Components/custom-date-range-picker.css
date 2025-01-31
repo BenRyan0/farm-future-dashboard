@@ -1,0 +1,26 @@
+.custom-date-range-picker .rdrCalendarWrapper,
+.custom-date-range-picker .rdrDateDisplayItem,
+.custom-date-range-picker .rdrDayNumber span,
+.custom-date-range-picker .rdrMonthAndYearPickers select,
+.custom-date-range-picker .rdrMonthAndYearPickers span {
+  color: #03872d; /* Use the desired color */
+}
+
+.rdrStaticRangeLabel {
+  display: none;
+}
+
+.rdrDefinedRangesWrapper {
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .rdrStaticRangeLabel {
+    display: block;
+  }
+
+  .rdrDefinedRangesWrapper {
+    display: block;
+  }
+}
