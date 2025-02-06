@@ -3,22 +3,30 @@ import api from "../../api/api";
 
 export const commodityAdd = createAsyncThunk(
   "commodity/commodityAdd",
-  async ({ name, image, price}, { rejectWithValue, fulfillWithValue, getState }) => {
+  async ({ name,
+    description,
+    category,
+    unit,
+    image}, { rejectWithValue, fulfillWithValue, getState }) => {
     const { token } = getState().auth;
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
+    console.log(category)
 
     try {
       const formData = new FormData();
       formData.append("name", name);
+      formData.append("description", description);
+      formData.append("category", category);
+      formData.append("unit", unit);
       formData.append("image", image);
-      formData.append("price", price);
+      // formData.append("price", price);
 
       console.log("NGIIIIIIIIIIIIIII")
-      console.log(price)
+      // console.log(price)
 
       const { data } = await api.post("/commodity-add", formData, config);
       console.log(data)
@@ -28,6 +36,7 @@ export const commodityAdd = createAsyncThunk(
     }
   }
 );
+
 
 export const commodityDelete = createAsyncThunk(
   "commodity/commodityDelete",
@@ -48,10 +57,34 @@ export const commodityDelete = createAsyncThunk(
   }
 );
 
-export const additionalFeaturesAdd = createAsyncThunk(
-  "commodity/additionalFeaturesAdd",
-  async ({ name, image, description }, { rejectWithValue, fulfillWithValue, getState }) => {
+// export const get_commodity = createAsyncThunk(
+//   "commodity/get_commodity",
+//   async ({ parPage, page, searchValue,week }, { rejectWithValue, fulfillWithValue, getState }) => {
+//     const { token } = getState().auth;
+//     console.log("SHIIIIIIIIIIIIIIIIIIIIIIT")
+//     const config = {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+
+//     try {
+//       const { data } = await api.get(
+//         `/commodity-get?page=${page}&&searchValue=${searchValue}&&parPage=${parPage}&&week=${week}`,week,
+//         config
+//       );
+//       return fulfillWithValue(data);
+//     } catch (error) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
+export const get_commodity = createAsyncThunk(
+  "commodity/get_commodity",
+  async ({ parPage, page, searchValue, week }, { rejectWithValue, fulfillWithValue, getState }) => {
     const { token } = getState().auth;
+    console.log("SHIIIIIIIIIIIIIIIIIIIIIIT");
+
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -59,12 +92,39 @@ export const additionalFeaturesAdd = createAsyncThunk(
     };
 
     try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("image", image);
+      // Format the week parameters to be query string values
+      const firstDay = encodeURIComponent(week.firstDay);
+      const lastDay = encodeURIComponent(week.lastDay);
 
-      const { data } = await api.post("/additional-features-add", formData, config);
+      const { data } = await api.get(
+        `/commodity-get?page=${page}&&searchValue=${searchValue}&&parPage=${parPage}&&firstDay=${firstDay}&&lastDay=${lastDay}`,
+        config
+      );
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const get_commodity1 = createAsyncThunk(
+  "commodity/get_commodity1",
+  async ({ parPage, page, searchValue }, { rejectWithValue, fulfillWithValue, getState }) => {
+    const { token } = getState().auth;
+    console.log("SHIIIIIIIIIIIIIIIIIIIIIIT");
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+
+
+      const { data } = await api.get(
+        `/commodity-get-1?page=${page}&&searchValue=${searchValue}&&parPage=${parPage}`,
+        config
+      );
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -72,8 +132,35 @@ export const additionalFeaturesAdd = createAsyncThunk(
   }
 );
 
-export const additionalFeatureDelete = createAsyncThunk(
-  "commodity/featureDelete",
+// Add Admin Commodity Price
+export const adminCommodityPriceAdd = createAsyncThunk(
+  "commodity/adminCommodityPriceAdd",
+  async ({ commodityId, price, week }, { rejectWithValue, fulfillWithValue, getState }) => {
+    const { token } = getState().auth;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+
+    console.log("-----------------------------------------------------------")
+    console.log(price)
+    console.log(week)
+    console.log(commodityId)
+    console.log("-----------------------------------------------------------")
+    try {
+      const { data } = await api.post("/admin-commodity-price-add", { commodityId, price, week }, config);
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// Delete Admin Commodity Price
+export const adminCommodityPriceDelete = createAsyncThunk(
+  "commodity/adminCommodityPriceDelete",
   async ({ id }, { rejectWithValue, fulfillWithValue, getState }) => {
     const { token } = getState().auth;
     const config = {
@@ -83,7 +170,7 @@ export const additionalFeatureDelete = createAsyncThunk(
     };
 
     try {
-      const { data } = await api.delete(`/feature-remove/${id}`, config);
+      const { data } = await api.delete(`/admin-commodity-price-remove/${id}`, config);
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -91,9 +178,10 @@ export const additionalFeatureDelete = createAsyncThunk(
   }
 );
 
-export const get_commodity = createAsyncThunk(
-  "commodity/get_commodity",
-  async ({ parPage, page, searchValue }, { rejectWithValue, fulfillWithValue, getState }) => {
+// Get Admin Commodity Price
+export const getAdminCommodityPrice = createAsyncThunk(
+  "commodity/getAdminCommodityPrice",
+  async ({ commodityId, week }, { rejectWithValue, fulfillWithValue, getState }) => {
     const { token } = getState().auth;
     const config = {
       headers: {
@@ -102,10 +190,7 @@ export const get_commodity = createAsyncThunk(
     };
 
     try {
-      const { data } = await api.get(
-        `/commodity-get?page=${page}&&searchValue=${searchValue}&&parPage=${parPage}`,
-        config
-      );
+      const { data } = await api.get(`/admin-commodity-price-get/${commodityId}?week=${week}`, config);
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -113,27 +198,7 @@ export const get_commodity = createAsyncThunk(
   }
 );
 
-export const get_additionalFeatures = createAsyncThunk(
-  "commodity/additional_feature_get",
-  async ({ parPage, page, searchValue }, { rejectWithValue, fulfillWithValue, getState }) => {
-    const { token } = getState().auth;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
 
-    try {
-      const { data } = await api.get(
-        `/additional-features-get?page=${page}&&searchValue=${searchValue}&&parPage=${parPage}`,
-        config
-      );
-      return fulfillWithValue(data);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
 
 export const commodityReducer = createSlice({
   name: "commodity",
@@ -186,49 +251,49 @@ export const commodityReducer = createSlice({
       }
     });
 
-    builder.addCase(additionalFeatureDelete.pending, (state, _) => {
-      state.loader_delete = true;
-    });
-    builder.addCase(additionalFeatureDelete.rejected, (state, payload) => {
-      state.loader_delete = false;
-      state.errorMessage = payload.payload.error;
-    });
 
-    builder.addCase(additionalFeatureDelete.fulfilled, (state, payload) => {
-      state.loader_delete = false;
-      state.successMessage = payload.payload.message;
-
-      if (payload.payload.additionalFeature) {
-        state.additionalFeatures = state.additionalFeatures.filter(
-          (feature) => feature.id !== payload.payload.additionalFeature.id
-        );
-      }
+    builder.addCase(get_commodity.pending, (state, payload) => {
+     state.loader = true
     });
-
+    builder.addCase(get_commodity.rejected, (state, payload) => {
+      state.loader = false
+     
+    });
     builder.addCase(get_commodity.fulfilled, (state, payload) => {
+      state.loader = false
+      state.totalCommodity = payload.payload.totalCommodity;
+      state.commodities = payload.payload.commodities;
+    });
+    builder.addCase(get_commodity1.pending, (state, payload) => {
+     state.loader = true
+    });
+    builder.addCase(get_commodity1.rejected, (state, payload) => {
+      state.loader = false
+     
+    });
+    builder.addCase(get_commodity1.fulfilled, (state, payload) => {
+      state.loader = false
       state.totalCommodity = payload.payload.totalCommodity;
       state.commodities = payload.payload.commodities;
     });
 
-    builder.addCase(additionalFeaturesAdd.pending, (state, _) => {
-      state.loader = true;
-    });
-    builder.addCase(additionalFeaturesAdd.rejected, (state, payload) => {
-      state.loader = false;
-      state.errorMessage = payload.payload.error;
-    });
-    builder.addCase(additionalFeaturesAdd.fulfilled, (state, payload) => {
-      state.loader = false;
-      state.successMessage = payload.payload.message;
-      state.additionalFeatures = [
-        ...state.additionalFeatures,
-        payload.payload.additionalFeature,
-      ];
-    });
 
-    builder.addCase(get_additionalFeatures.fulfilled, (state, payload) => {
-      state.totalAdditionalFeatures = payload.payload.totalAdditionalFeatures;
-      state.additionalFeatures = payload.payload.additionalFeatures;
+
+
+
+    builder.addCase(adminCommodityPriceAdd.pending, (state, payload) => {
+     state.loader = true
+    });
+    builder.addCase(adminCommodityPriceAdd.rejected, (state, payload) => {
+      state.loader = false
+      state.errorMessage = payload.payload.error
+     
+    });
+    builder.addCase(adminCommodityPriceAdd.fulfilled, (state, payload) => {
+      state.loader = false
+      state.successMessage = payload.payload.message
+      // state.totalCommodity = payload.payload.totalCommodity;
+      // state.commodities = payload.payload.commodities;
     });
   },
 });

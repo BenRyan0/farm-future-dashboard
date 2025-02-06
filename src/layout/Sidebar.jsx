@@ -4,7 +4,7 @@ import { getNavs } from '../navigation/index'
 import { allNav } from './../navigation/allNav';
 import { BiLogInCircle } from 'react-icons/bi';
 import {useDispatch, useSelector} from 'react-redux'
-// import {logout} from '../store/Reducers/authReducer'
+import {logout} from '../store/Reducers/authReducer'
 import { IoMdExit } from "react-icons/io";
 // import InstallPWAButton from './../Components/Pwa/InstallPWAButton ';
 
@@ -50,8 +50,8 @@ const Sidebar = ({showSidebar, setShowSidebar}) => {
 
             
             <li>
-              <button className='text-[#d0d2d6] font-normal duration-200 px-[12px] py-[9px] rounded-sm flex justify-start items-center gap-3 hover:pl-4 transition-all w-full'>
-              {/* <button onClick={()=>dispatch(logout({navigate,role }))} className='text-[#d0d2d6] font-normal duration-200 px-[12px] py-[9px] rounded-sm flex justify-start items-center gap-3 hover:pl-4 transition-all w-full'> */}
+              {/* <button className='text-[#d0d2d6] font-normal duration-200 px-[12px] py-[9px] rounded-sm flex justify-start items-center gap-3 hover:pl-4 transition-all w-full'> */}
+              <button onClick={()=>dispatch(logout({navigate,role }))} className='text-[#d0d2d6] font-normal duration-200 px-[12px] py-[9px] rounded-sm flex justify-start items-center gap-3 hover:pl-4 transition-all w-full'>
                 <span><IoMdExit /></span>
                 <span>Logout {data.role}</span>
               </button>          

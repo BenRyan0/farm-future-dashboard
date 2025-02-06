@@ -27,6 +27,92 @@ import { baseURL } from "../../utils/config";
 //         }
 //     }
 // )
+
+export const get_commodity_statistics = createAsyncThunk(
+  'dashboardIndex/get-commodity-statistics',
+  async ({ id, filters = {} }, { rejectWithValue, fulfillWithValue, getState }) => {
+    // Destructure filters for sorting and date range, default to empty object if no filters
+    const { year, month, sortBy, sortOrder } = filters;
+    console.log("----------------->")
+    console.log(filters)
+
+    const { token } = getState().auth; // Get the token from the state
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`, // Set the Authorization header
+      },
+    };
+
+    try {
+      // Build the query string with filters if provided
+      const queryParams = new URLSearchParams();
+
+      if (year) queryParams.append('year', year);
+      if (month) queryParams.append('month', month);
+      if (sortBy) queryParams.append('sortBy', sortBy);
+      if (sortOrder) queryParams.append('sortOrder', sortOrder);
+
+      // Make the API call with the id and query parameters, if any
+      const { data } = await axios.get(
+        `${baseURL}/api/commodity-statistics/${id}${queryParams.toString() ? '?' + queryParams.toString() : ''}`,
+        config
+      );
+
+      console.log(data)
+      // Return the fetched data
+      return fulfillWithValue(data);
+    } catch (error) {
+      // Handle any errors during the API request
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+// export const get_commodity_statistics = createAsyncThunk(
+//     'dashboardIndex/get-commodity-statistics',
+//     async (id, { rejectWithValue, fulfillWithValue, getState }) => {
+//       console.log("NGIIIIIIIIIIIIII");
+//       console.log(id);
+//       const { token } = getState().auth;
+//       const config = {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       };
+  
+//       try {
+//         const { data } = await axios.get(`${baseURL}/api/commodity-statistics/${id}`, config);
+//         console.log("__________________________ >");
+//         console.log(data);
+//         return fulfillWithValue(data);
+//       } catch (error) {
+//         return rejectWithValue(error.response.data);
+//       }
+//     }
+//   );
+// export const get_commodity_statistics = createAsyncThunk(
+//     'dashboardIndex/get-commodity-statistics',
+//     async (id, { rejectWithValue, fulfillWithValue, getState }) => {
+//       console.log("NGIIIIIIIIIIIIII");
+//       console.log(id);
+//       const { token } = getState().auth;
+//       const config = {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       };
+  
+//       try {
+//         const { data } = await axios.get(`${baseURL}/api/commodity-statistics/${id}`, config);
+//         console.log("__________________________ >");
+//         console.log(data);
+//         return fulfillWithValue(data);
+//       } catch (error) {
+//         return rejectWithValue(error.response.data);
+//       }
+//     }
+//   );
+
+
 export const get_seller_dashboard_index_data = createAsyncThunk(
     'dashboardIndex/get_seller_dashboard_index_data',
     async (id, { rejectWithValue, fulfillWithValue, getState }) => {
@@ -86,7 +172,11 @@ export const dashboardIndexReducer = createSlice({
         chartData: [],
         secondChartData: [],
         adminChartData: [],
-        secondAdminChartData: []
+        secondAdminChartData: [],
+        priceTrendChartData1: [],
+        commodityChartData: [],
+        commodityFluctuationData: [],
+        years: [],
     },
     reducers: {
         messageClear: (state, _) => {
@@ -205,6 +295,46 @@ export const dashboardIndexReducer = createSlice({
               })) || [],
             };
           });
+
+
+
+        builder.addCase(get_commodity_statistics.pending, (state, payload) => {
+            state.loader = true;
+        })
+        builder.addCase(get_commodity_statistics.rejected, (state, payload) => {
+            state.loader = false;
+        })
+        builder.addCase(get_commodity_statistics.fulfilled, (state, payload) => {
+          state.loader = false;
+          state.commodityChartData = payload.payload.chartData
+          state.commodityFluctuationData = payload.payload.fluctuationData
+          state.years = payload.payload.years
+          
+          
+        });
+        // builder.addCase(get_commodity_statistics.fulfilled, (state, payload) => {
+        //   state.loader = false;
+        //   const data = payload?.payload || {};
+        //   state.averagePrice = data.averagePrice || 0;
+        //   state.priceChange = data.priceChange || 0;
+        //   state.totalCommodities = data.totalCommodities || 0;
+        //   state.marketVolume = data.marketVolume || 0;
+        //   state.recentPriceUpdates = data.recentPriceUpdates || [];
+        //   state.marketNews = data.marketNews || [];
+        //   state.errorMessage = data.errorMessage || "";
+        //   state.successMessage = data.successMessage || "";
+          
+        //   // Fill the chart data
+        //   state.priceTrendChartData1 = {
+        //     series: data.priceTrendChartData?.series || [],
+        //     options: data.priceTrendChartData?.options || {},
+        //   }
+        //   state.commodityComparisonChartData = {
+        //     series: data.commodityComparisonChartData?.series || [],
+        //     options: data.commodityComparisonChartData?.options || {},
+        //   };
+        // });
+        
 
     }
 

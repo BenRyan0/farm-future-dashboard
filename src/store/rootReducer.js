@@ -10,6 +10,7 @@ import dashboardIndexReducer from './Reducers/dashboardIndexReducer'
 import AdminReducer from './Reducers/adminReducer_'
 import voucherReducer from './Reducers/voucherReducer'
 import transactionReducer from './Reducers/transactionReducer'
+import commodityReducer from './Reducers/commodityReducer'
 
 
 const rootReducer = {
@@ -24,7 +25,7 @@ const rootReducer = {
   dashboardIndex: dashboardIndexReducer,
   admin : AdminReducer,
   voucher : voucherReducer,
-  transaction : transactionReducer
-  // banner : bannerReducer
+  transaction : transactionReducer,
+  commodity : commodityReducer
 };
 export default rootReducer;

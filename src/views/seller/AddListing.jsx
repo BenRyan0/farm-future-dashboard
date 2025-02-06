@@ -411,7 +411,6 @@ console.log(selectedFeatures)
                                     </div>
                                     
                                     <div className="absolute right-1 bottom-1">
-                                        {/* <label htmlFor="countries" className="">Select unit</label> */}
                                         <div className="flex ">
                                             <h2>/</h2>
                                             <select 

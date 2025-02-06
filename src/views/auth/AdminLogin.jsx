@@ -53,10 +53,11 @@ const AdminLogin = () => {
         <div className='min-w-screen min-h-screen bg-[#161d31] flex justify-center items-center'>
             <div className="w-[350px] text-[#d0d2d6] p-2">
                 <div className="bg-transparent p-4 rounded-md">
-                    <div className="h-[70px] flex justify-center items-center">
+                    <div className="h-[70px] flex justify-center flex-col items-center">
                         <div className="w-[180px] h-[50px">
-                            <img className='w-full h-full' src="/images/Harvestify_logo_full.png" alt="Logo" />
+                            <img className='w-full h-full' src="/images/FarmFuture_LOGO.png" alt="Logo" />
                         </div>
+                        <h2 className='font-normal text-[13px]'>Welcome Back Admin!</h2>
                     </div>
 
                     <form onSubmit={submit}>

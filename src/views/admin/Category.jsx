@@ -217,7 +217,7 @@ const confirmDelete = () => {
                     </div>
                     </div>
                 )}
-                        <div className={`w-[320px] lg:w-5/12 translate-x-100 lg:relative lg:right-0 fixed ${show ? 'right-0' : '-right-[340px]'} z-[9999] top-0 transition-all duration-500`}>
+                        <div className={`w-[370px] lg:w-5/12 translate-x-100 lg:relative lg:right-0 fixed ${show ? 'right-0' : '-right-[340px]'} z-[9999] top-0 transition-all duration-500`}>
                 <div className="w-full pl-5">
                     <div className="bg-[#283046] rounded-md h-screen lg:h-auto px-3 py-6 lg:rounded-md text-text_color">
                         <div className="flex justify-between items-center py-3">

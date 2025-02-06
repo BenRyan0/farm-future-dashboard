@@ -1,6 +1,9 @@
 import { lazy } from "react";
 const AdminDashboard = lazy(() => import("../../views/admin/AdminDashboard"));
 const Commodity = lazy(() => import("../../views/admin/Commodity"));
+const Category = lazy(() => import("../../views/admin/Category"));
+const CommodityPrices = lazy(() => import("../../views/admin/CommodityPrices"));
+const CommodityStatistics = lazy(() => import("../../views/admin/CommodityStatistics"));
 // const Sellers = lazy(() => import("../../views/admin/Sellers"));
 // const PaymentRequest = lazy(() => import("../../views/admin/PaymentRequest"));
 // const DeactivateSellers = lazy(() =>
@@ -23,6 +26,7 @@ const Commodity = lazy(() => import("../../views/admin/Commodity"));
 // const ChangePassword = lazy(() => import("./../../views/admin/ChangePassword"));
 // // const Traders = lazy(() => import("./../../views/admin/Traders"));
 const Home = lazy(() => import("../../views/pages/Home"));
+// import Category from './../../views/admin/Category';
 
 export const adminRoutes = [
   {
@@ -34,6 +38,30 @@ export const adminRoutes = [
   {
     path: "admin/dashboard/commodities",
     element: <Commodity/>,
+    ability: "admin",
+    role: "admin",
+  },
+  {
+    path: "admin/dashboard/categories",
+    element: < Category  />,
+    ability: "admin",
+    role: "admin",
+  },
+  {
+    path: "admin/dashboard/commodity/:commodityId",
+    element: < Category  />,
+    ability: "admin",
+    role: "admin",
+  },
+  {
+    path: "admin/dashboard/commodity-prices",
+    element: <CommodityPrices/>,
+    ability: "admin",
+    role: "admin",
+  },
+  {
+    path: "admin/dashboard/commodity-statistics/:id",
+    element: <CommodityStatistics/>,
     ability: "admin",
     role: "admin",
   },
