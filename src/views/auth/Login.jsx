@@ -8,6 +8,8 @@ import { overRideStyle } from './../../utils/Utils';
 import {messageClear, seller_register, seller_login} from '../../store/Reducers/authReducer'
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'
+import { LuEye } from "react-icons/lu";
+import { LuEyeClosed } from "react-icons/lu"
 // import InstallPWAButton from './../../Components/Pwa/InstallPWAButton ';
 // import LanguageDropdown from '../../src/Components/LanguageModule/LanguageDropdown';
 // import LanguageDropdown from '../../../src/Components/LanguageModule/LanguageDropdown';
@@ -22,6 +24,10 @@ const Login = () => {
     const loader = false;
     const {errorMessage , successMessage} = useSelector(state=>state.auth)
     // const { loader, errorMessage , successMessage} = useSelector(state=>state.auth)
+
+     const [showPassword, setShowPassword] = useState(false);
+
+
     const [state, setState] = useState({
         email: '',
         password : ''
@@ -71,14 +77,30 @@ const Login = () => {
                         <label htmlFor="email">Email</label>
                         <input onChange={inputHandle} value={state.email} className='px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md text-[#d0d2d6] focus:border-accent overflow-hidden' type="email" name='email' placeholder='email' id='email' required/>
                     </div>
-                    <div className="flex flex-col w-full gap-1 mb-3">
+
+                    <div className="relative">
+                        <div className="flex flex-col w-full gap-1 mb-3">
+                            <label htmlFor="password">Password</label>
+                            <input onChange={inputHandle} value={state.password} className='px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md text-[#d0d2d6] focus:border-accent overflow-hidden'    type={showPassword ? "text" : "password"} name='password' placeholder='password' id='password' required/>
+                        </div>
+
+                          <button
+                              type="button"
+                               onClick={() => setShowPassword(!showPassword)}
+                               className="ml-2 text-gray-200 hover:text-gray-100 pr-2 absolute right-2 top-6 bottom-0"
+                          >
+                            {showPassword ? <LuEye  size={19} /> : <LuEyeClosed size={16} />}
+                            {/* {showPassword ? <LuEyeClosed  size={16} /> : <LuEye size={16} />} */}
+                          </button>
+
+                    </div>
+                  
+                    
+                    {/* <div className="flex flex-col w-full gap-1 mb-3">
                         <label htmlFor="password">Password</label>
                         <input onChange={inputHandle} value={state.password} className='px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md text-[#d0d2d6] focus:border-accent overflow-hidden' type="password" name='password' placeholder='password' id='password' required/>
-                    </div>
-                    {/* <div className="flex items-center w-full gap-1 mb-3">
-                        <input  className='w-4 h-4 text-blue-600 overflow-hidden bg-gray-100 rounded border-gray-300 focus:ring-blue-500' type="checkbox" name='name' id='name' required/>
-                        <label htmlFor="name">I agree to privacy policy terms</label>
                     </div> */}
+                   
 
                     <button disabled={loader ? true : false} className='bg-accent/50 w-full hover:shadow-[#6ED601]/10 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3 font-bold mt-5'>
                                     {
@@ -91,38 +113,10 @@ const Login = () => {
 
                     </button>
                     <div className="flex flex-col text-center justify-center text-xs mt-2">
-                        {/* <p>{t("noAccount")}</p> */}
-                        {/* <Link to='/register' className='font-semibold text-[10px]'>{t("fillApplication")}</Link> */}
+                        <p>No Account?</p>
+                        <Link to='/register' className='font-semibold text-[10px]'>Fill up an application</Link>
                     </div>
-                    {/* <div className="w-full flex justify-center items-center mb-3">
-                        <div className="w-[45%] bg-slate-700 h-[1px]"></div>
-                        <div className="w-[10%] flex justify-center items-center">
-                            <span className='pb-1 text-sm'>or</span>
-                        </div>
-                        <div className="w-[45%] bg-slate-700 h-[1px]"></div>
-                    </div>
-                    <div className="flex justify-center items-center gap-3">
-                        <div className="w-[35px] h-[35px] flex justify-center items-center rounded-md bg-orange-700 shadow-lg hover:shadow-orange-700/50 overflow-hidden">
-                            <span>
-                                <AiOutlineGooglePlus></AiOutlineGooglePlus>
-                            </span>
-                        </div>
-                        <div className="w-[35px] h-[35px] flex justify-center items-center rounded-md bg-orange-700 shadow-lg hover:shadow-orange-700/50 overflow-hidden">
-                            <span>
-                                <FiFacebook></FiFacebook>
-                            </span>
-                        </div>
-                        <div className="w-[35px] h-[35px] flex justify-center items-center rounded-md bg-orange-700 shadow-lg hover:shadow-orange-700/50 overflow-hidden">
-                            <span>
-                                 < AiFillTwitterSquare></ AiFillTwitterSquare>
-                            </span>
-                        </div>
-                        <div className="w-[35px] h-[35px] flex justify-center items-center rounded-md bg-orange-700 shadow-lg hover:shadow-orange-700/50 overflow-hidden">
-                            <span>
-                                <AiFillGithub></AiFillGithub>
-                            </span>
-                        </div>
-                    </div> */}
+                  
                 </form>
             </div>
         </div>

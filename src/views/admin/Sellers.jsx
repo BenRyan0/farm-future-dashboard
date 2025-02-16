@@ -43,8 +43,8 @@ const Sellers = () => {
                         <table className='w-full text-sm text-left text-[#d0d2d6]'>
                             <thead className='text-xs text-[#d0d2d6] uppercase border-b border-slate-700'>
                             <tr>
-                                <th scope='col' className='py-3 px-4'>No</th>
-                                <th scope='col' className='py-3 px-4'>Image</th>
+                                {/* <th scope='col' className='py-3 px-4'>No</th> */}
+                                <th scope='col' className='py-3 px-4'>Profile Image</th>
                                 <th scope='col' className='py-3 px-4'>Name</th>
                                 <th scope='col' className='py-3 px-4'>Shop Name</th>
                                 <th scope='col' className='py-3 px-4'>Status</th>
@@ -59,7 +59,7 @@ const Sellers = () => {
                                 {
                                     sellers.map((d,i)=> 
                                         <tr key={i}>
-                                            <td scope='row' className='py-1 pl-4 font-medium whitespace-nowrap'></td>
+                                            {/* <td scope='row' className='py-1 pl-4 font-medium whitespace-nowrap'></td> */}
                                             <td  scope='row' className='py-1 pl-4 font-medium whitespace-nowrap'>
                                                 <img className='h-[90px] w-[90px] rounded-md py-1 obj' src={d.profileImage} alt="" />
                                             </td>

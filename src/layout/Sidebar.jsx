@@ -53,7 +53,7 @@ const Sidebar = ({showSidebar, setShowSidebar}) => {
               {/* <button className='text-[#d0d2d6] font-normal duration-200 px-[12px] py-[9px] rounded-sm flex justify-start items-center gap-3 hover:pl-4 transition-all w-full'> */}
               <button onClick={()=>dispatch(logout({navigate,role }))} className='text-[#d0d2d6] font-normal duration-200 px-[12px] py-[9px] rounded-sm flex justify-start items-center gap-3 hover:pl-4 transition-all w-full'>
                 <span><IoMdExit /></span>
-                <span>Logout {data.role}</span>
+                <span>Logout</span>
               </button>          
             </li>
           </ul>

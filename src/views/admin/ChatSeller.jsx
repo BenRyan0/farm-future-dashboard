@@ -117,10 +117,7 @@ const ChatSeller = () => {
                     <div className="flex justify-between items-center">
                         {
                             sellerId && <div className="flex justify-start items-center gap-3">
-                                <div className="relative">
-                                    <img className='w-[45px] h-[45px] border-green-500 border-2 max-w-[50px] p-[2px] rounded-full' src="/images/Ben_Ryan_0.jpg" alt="" />
-                                    <div className="w-[13px] h-[13px] bg-green-500 rounded-full absolute right-0 bottom-0 border-white border-2"></div>
-                                </div>
+                                
                                 <div className="flex flex-col text-slate-300">
                                      <span className=' -mb-1 border-b'>{currentSeller?.firstName} {currentSeller?.lastName}</span>
                                      <span>{currentSeller?.role}</span>

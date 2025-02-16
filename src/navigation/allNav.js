@@ -16,6 +16,7 @@ import { TbCurrencyPeso } from "react-icons/tb";
 import { MdDiscount } from "react-icons/md";
 import { PiPasswordBold } from "react-icons/pi";
 import { IoIosPricetags } from "react-icons/io";
+import { AiOutlineProduct } from "react-icons/ai";
 
 // import { RiFunctionAddFill } from "react-icons/ri";
 // import { RiFunctionAddFill } from "react-icons/ri";
@@ -32,7 +33,7 @@ export const allNav = [
   {
     id: 3,
     title: "Commodities",
-    icon: <BiCategory />,
+    icon: <AiOutlineProduct />,
     role: "admin",
     path: "/admin/dashboard/commodities",
   },
@@ -89,10 +90,10 @@ export const allNav = [
   },
   {
     id: 10,
-    title: "Add Listing",
-    icon: <AiOutlinePlus />,
+    title: "Commodities",
+    icon: <AiOutlineProduct />,
     role: "seller",
-    path: "/seller/dashboard/add-Listing",
+    path: "/seller/dashboard/commodities",
   },
   {
     id: 11,
@@ -100,6 +101,13 @@ export const allNav = [
     icon: <RiProductHuntLine />,
     role: "seller",
     path: "/seller/dashboard/listings",
+  },
+  {
+    id: 12,
+    title: "Commodity Prices",
+    icon: <IoIosPricetags />,
+    role: "seller",
+    path: "/seller/dashboard/commodity-prices",
   },
 
  

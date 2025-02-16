@@ -18,11 +18,11 @@ function App() {
   const {token} = useSelector(state=>state.auth)
   const [allRoutes, setAllRoutes] = useState([...publicRoutes])
 
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_API_KEY,
-    libraries:['places']
-  })
+  // const { isLoaded } = useJsApiLoader({
+  //   id: 'google-map-script',
+  //   googleMapsApiKey: process.env.REACT_APP_API_KEY,
+  //   libraries:['places']
+  // })
 
  useEffect(()=>{
     const routes =getRoutes()

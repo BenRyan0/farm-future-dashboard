@@ -227,9 +227,9 @@ const AdminDashboard = () => {
     return new Intl.NumberFormat('en-US').format(Math.floor(num));
   };
 
-  useEffect(() => {
-    dispatch(get_admin_dashboard_index_data());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(get_admin_dashboard_index_data());
+  // }, [dispatch]);
 
   if (loader) {
     return (

@@ -47,7 +47,7 @@ const SellerRequest = () => {
                            <th scope='col' className='py-3 px-4'>Email</th>
                            {/* <th scope='col' className='py-3 px-4'>Payments Status</th> */}
                            <th scope='col' className='py-3 px-4'>Status</th>
-                           <th scope='col' className='py-3 px-4'>Action</th>
+                           <th scope='col' className='py-3 px-4 w-fit'>Action</th>
                           
                        </tr>
 
@@ -55,7 +55,7 @@ const SellerRequest = () => {
                        <tbody className='text-xs'>
                            {
                               sellers.map((d,i)=> 
-                                   <tr className='border-b border-slate-700 py-1' key={i}>
+                                   <tr className='border-b border-slate-700' key={i}>
                                        <td scope='row' className='py-1 pl-4 font-medium whitespace-nowrap'>{i + 1}</td>
                   
                                        <td scope='row' className='py-1 pl-4 font-medium whitespace-nowrap'>
@@ -70,9 +70,9 @@ const SellerRequest = () => {
                                        <td scope='row' className='py-1 pl-4 font-medium whitespace-nowrap'>
                                            <span className='text-orange-400 font-semibold`'>{d.status}</span>
                                        </td>
-                                       <td scope='row' className='py-1aaaaa px-4 font-medium whitespace-nowrap'>
+                                       <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>
                                           <div className="flex justify-start items-center gap-4">
-                                               <Link to={`/admin/dashboard/seller/details/${d._id}`}  className='p-2 bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'><IoEyeSharp /></Link>
+                                               <Link to={`/admin/dashboard/seller/details/${d._id}`}  className='p-2 bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50 flex justify-center items-center gap-1'> view more<IoEyeSharp size={15} /></Link>
                                                {/* <Link className='p-2 bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50'><FaTrash/></Link> */}
                                           </div>
                                        </td>

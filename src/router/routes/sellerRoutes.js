@@ -1,8 +1,10 @@
 import { lazy } from "react";
-// const Home = lazy(() => import("../../views/pages/Home"));
-// const SellerDashboard = lazy(() =>
-//   import("../../views/seller/SellerDashboard")
-// );
+const Home = lazy(() => import("../../views/pages/Home"));
+const SellerDashboard = lazy(() =>
+  import("../../views/seller/SellerDashboard")
+);
+const Commodity = lazy(() => import("../../views/seller/Commodity"));
+const CommodityPrices = lazy(() => import("../../views/seller/CommodityPrices"));
 // const AddListing = lazy(() => import("../../views/seller/AddListing"));
 // const Listings = lazy(() => import("../../views/seller/Listings"));
 // const DiscountedListings = lazy(() =>
@@ -13,40 +15,46 @@ import { lazy } from "react";
 // const SellerToCustomerPage = lazy(() =>
 //   import("../../views/seller/SellerToCustomer")
 // );
-// const SellerToAdminPage = lazy(() =>
-//   import("../../views/seller/SellerToAdmin")
-// );
+const SellerToAdminPage = lazy(() =>
+  import("../../views/seller/SellerToAdmin")
+);
 // const Profile = lazy(() => import("../../views/seller/Profile"));
 // const Voucher = lazy(() => import("../../views/seller/Voucher"));
 // const EditListing = lazy(() => import("../../views/seller/EditListing"));
 // const DealDetails = lazy(() => import("../../views/seller/DealDetails"));
-// const PendingUser = lazy(() => import("../../views/PendingUser"));
+const PendingUser = lazy(() => import("../../views/PendingUser"));
 // const DeactivatedSeller = lazy(() => import("../../views/DeactivatedUser"));
 // const TransactionProgress= lazy(() => import("../../views/seller/TransactionProgress"));
 
 export const sellerRoutes = [
-  // {
-  //   path: "/seller/account-pending",
-  //   element: <PendingUser />,
-  //   ability: "seller",
-  // },
+  {
+    path: "/seller/account-pending",
+    element: <PendingUser />,
+    ability: "seller",
+  },
   // {
   //   path: "/seller/account-deactivated",
   //   element: <DeactivatedSeller />,
   //   ability: "seller",
   // },
-  // {
-  //   path: "/seller/dashboard/",
-  //   element: <SellerDashboard />,
-  //   role: "seller",
-  //   status: "active",
-  // },
-  // {
-  //   path: "/seller/dashboard/add-listing",
-  //   element: <AddListing />,
-  //   role: "seller",
-  //   status: "active",
-  // },
+  {
+    path: "/seller/dashboard/",
+    element: <SellerDashboard />,
+    role: "seller",
+    status: "active",
+  },
+  {
+    path: "/seller/dashboard/commodities",
+    element: <Commodity />,
+    role: "seller",
+    status: "active",
+  },
+  {
+    path: "/seller/dashboard/commodity-prices",
+    element: <CommodityPrices/>,
+    role: "seller",
+    status: "active",
+  },
   // {
   //   path: "/seller/dashboard/edit-listing/:listingId",
   //   element: <EditListing />,
@@ -83,12 +91,12 @@ export const sellerRoutes = [
   //   role: "seller",
   //   status: "active",
   // },
-  // {
-  //   path: "/seller/dashboard/chat-support",
-  //   element: <SellerToAdminPage />,
-  //   role: "seller",
-  //   visibility: ["active", "deactivated", "pending"],
-  // },
+  {
+    path: "/seller/dashboard/chat-support",
+    element: <SellerToAdminPage />,
+    role: "seller",
+    visibility: ["active", "deactivated", "pending"],
+  },
   // {
   //   path: '/seller/dashboard/chat-customer/:customerId',
   //   element: <SellerToCustomerPage />,

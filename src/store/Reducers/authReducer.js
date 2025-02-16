@@ -97,30 +97,135 @@ export const seller_login = createAsyncThunk(
     }
   }
 );
+// export const logout = createAsyncThunk(
+//   "auth/logout",
+//   async ({navigate,role}, { rejectWithValue, fulfillWithValue, getState }) => {
+//     const {token} = getState().auth
+//     const config = {
+//       headers : {
+//         Authorization: `Bearer ${token}`
+//       }
+//     }
+//     try {
+//       const { data } = await axios.get(`${baseURL}/api/logout`, config);
+//       console.log(data)
+//       // const { data } = await axios.get("/logout", config);
+//       localStorage.removeItem("accessToken");
+//       if(role === 'admin'){
+//         navigate('/admin/login')
+//       }else{
+//         navigate('/login')
+//       }
+//       return fulfillWithValue(data);
+//     } catch (error) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
+
+// export const logout = createAsyncThunk(
+//   "auth/logout",
+//   async ({ navigate, role }, { rejectWithValue, fulfillWithValue, getState }) => {
+//     const { token } = getState().auth;
+
+//     if (!token) {
+//       return rejectWithValue({ message: "Token is missing" });
+//     }
+
+//     const config = {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+
+//     try {
+//       // Wait for the API response
+//       const { data } = await axios.post(`${baseURL}/api/logout`, config);
+//       console.log("Logout success:", data);
+
+//       // Remove token after the API call succeeds
+//       localStorage.removeItem("accessToken");
+
+//       // Perform navigation based on the role
+//       if (role === "admin") {
+//         navigate("/admin/login");
+//       } else {
+//         navigate("/login");
+//       }
+
+//       // Fulfill the thunk with the API response
+//       return fulfillWithValue(data);
+//     } catch (error) {
+//       console.error("Logout error:", error.response || error.message);
+//       return rejectWithValue(error.response?.data || { message: "Logout failed" });
+//     }
+//   }
+// );
+
+
+// export const logout = createAsyncThunk(
+//   "auth/logout",
+//   async ({ navigate, role }, { rejectWithValue, fulfillWithValue, getState }) => {
+//     const { token } = getState().auth;
+//     const config = {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+//     try {
+//       const { data } = await axios.get(`${baseURL}/api/logout`, config);
+//       console.log(data);
+//       localStorage.removeItem("accessToken");
+
+//       // Wait for API response and then add a delay before navigation
+//       await new Promise((resolve) => setTimeout(resolve, 3000)); // 1-second delay
+
+//       if (role === "admin") {
+//         navigate("/admin/login");
+//       } else {
+//         navigate("/login");
+//       }
+
+//       return fulfillWithValue(data);
+//     } catch (error) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
+
 export const logout = createAsyncThunk(
   "auth/logout",
-  async ({navigate,role}, { rejectWithValue, fulfillWithValue, getState }) => {
-    const {token} = getState().auth
+  async ({ navigate, role }, { rejectWithValue, fulfillWithValue, getState }) => {
+    const { token } = getState().auth;
     const config = {
-      headers : {
-        Authorization: `Bearer ${token}`
-      }
-    }
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
     try {
       const { data } = await axios.get(`${baseURL}/api/logout`, config);
-      // const { data } = await axios.get("/logout", config);
+      console.log(data);
       localStorage.removeItem("accessToken");
-      if(role === 'admin'){
-        navigate('/admin/login')
-      }else{
-        navigate('/login')
-      }
+
+      // Refresh the page
+      window.location.reload();
+
+      // Continue navigation after a short delay
+      setTimeout(() => {
+        if (role === "admin") {
+          navigate("/admin/login");
+        } else {
+          navigate("/login");
+        }
+      }, 1000); // 1-second delay
+
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
+
 
 export const seller_register = createAsyncThunk(
   "auth/seller_register",
@@ -263,6 +368,7 @@ console.log(config)
 
 
 const returnRole = (token) => {
+  console.log("RETURN ROLE")
   if (!token) {
     return ""; // No token, return an empty role
   }
@@ -433,6 +539,22 @@ export const authReducer = createSlice({
           state.loader = false;
           state.successMessage = payload.payload.message;
           state.requestMessage = payload.payload.requestMessage;
+
+        });
+
+        builder.addCase(logout.pending, (state, _) => {
+          state.loader = true;
+        });
+        builder.addCase(logout.rejected, (state, payload) => {
+          state.loader = false;
+          state.errorMessage = payload.payload.error;
+          state.requestMessageError = payload.payload.requestMessage;
+        });
+        builder.addCase(logout.fulfilled, (state, payload) => {
+          state.loader = false;
+          state.successMessage = payload.payload.message;
+          state.requestMessage = payload.payload.requestMessage;
+          state.userInfo = "";
 
         });
   },

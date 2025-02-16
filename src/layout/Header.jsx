@@ -10,8 +10,8 @@ const Header = ({showSidebar, setShowSidebar}) => {
 
   console.log("----------------------------- USER")
   console.log(userInfo)
-  const authState = useSelector(state => state.auth);
-  console.log("Auth State:", authState);
+  // const authState = useSelector(state => state.auth);
+  // console.log("Auth State:", authState);
   
 
 
